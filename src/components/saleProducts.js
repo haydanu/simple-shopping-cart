@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import data from "./data";
 
 import Products from "./products";
+import Cart from "./cart";
 
 class SaleProducts extends Component {
   constructor() {
@@ -25,9 +26,8 @@ class SaleProducts extends Component {
 
     if (alreadyExists) {
       cartItems = cartItems.map(item => {
-        console.log(item);
         if (item.id === data.id) {
-          item.quantity = item.quantity + 1;
+          item.quantity++;
         }
         return item;
       });
@@ -35,9 +35,30 @@ class SaleProducts extends Component {
       cartItems.push(newObjItem);
     }
 
+    this.setState(
+      {
+        cartItems
+      },
+      console.log(this.state)
+    );
+  };
+
+  removeItemFromCart = currentItem => {
+    let cartItems = this.state.cartItems;
+    const alreadyExists = cartItems.find(product => product.id === currentItem.id);
+
+    if (alreadyExists) {
+      cartItems = cartItems.map(item => {
+        if (item.id === currentItem.id) {
+          item.quantity--;
+        }
+        return item;
+      }).filter(cartItem => cartItem.quantity > 0);
+    }
+
     this.setState({
       cartItems
-    }, console.log(this.state));
+    });
   };
 
   render() {
@@ -61,6 +82,17 @@ class SaleProducts extends Component {
 
         <div className="cart">
           <div className="cart-title">SHOPPING CART</div>
+          <div>
+            {this.state.cartItems.length <= 0 ? (
+              <div>There is no cart yet</div>
+            ) : (
+              <Cart
+                cartProduct={this.state.cartItems}
+                deleteCart={this.removeItemFromCart}
+                addAmountCart={this.addToCart}
+              />
+            )}
+          </div>
         </div>
       </div>
     );
