@@ -1,32 +1,46 @@
 .App {
+  padding: 15px;
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+/* saleProducts css */
+* {
+  box-sizing: border-box;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.group-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 45px;
+  grid-auto-rows: 100px;
+  grid-template-areas:
+    "a e c"
+    "a e c"
+    "b e d"
+    "b e d";
+  align-items: start;
+}
+.image-1 {
+  grid-area: e;
+}
+.image-2 {
+  grid-area: a;
+}
+.image-3 {
+  grid-area: b;
+}
+.image-4 {
+  grid-area: c;
+}
+.image-5 {
+  grid-area: d;
 }
 
-.App-link {
-  color: #61dafb;
+.image-1 > img {
+  height: 400px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.image-2 > img, .image-3 > img, .image-4 > img, .image-5 > img {
+  height: 200px;
 }
+/* end */
