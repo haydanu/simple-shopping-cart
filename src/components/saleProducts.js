@@ -8,10 +8,20 @@ class SaleProducts extends Component {
   constructor() {
     super();
     this.state = {
-      isLoading: false,
+      isLoading: true,
       data: data,
-      cartItems: []
+      cartItems: [],
+      cartTotal: 0,
+      cartItemsCount: 0
     };
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        isLoading: false
+      });
+    }, 3000);
   }
 
   addToCart = data => {
@@ -35,30 +45,43 @@ class SaleProducts extends Component {
       cartItems.push(newObjItem);
     }
 
-    this.setState(
-      {
-        cartItems
-      },
-      console.log(this.state)
-    );
+    this.setState({
+      cartItems
+    });
+
+    let cartItemsCount = this.state.cartItemsCount + 1;
+    this.setState({ cartItemsCount: cartItemsCount });
+
+    let total = this.state.cartTotal + 1 * data.price;
+    this.setState({ cartTotal: total });
   };
 
   removeItemFromCart = currentItem => {
     let cartItems = this.state.cartItems;
-    const alreadyExists = cartItems.find(product => product.id === currentItem.id);
+    const alreadyExists = cartItems.find(
+      product => product.id === currentItem.id
+    );
 
     if (alreadyExists) {
-      cartItems = cartItems.map(item => {
-        if (item.id === currentItem.id) {
-          item.quantity--;
-        }
-        return item;
-      }).filter(cartItem => cartItem.quantity > 0);
+      cartItems = cartItems
+        .map(item => {
+          if (item.id === currentItem.id) {
+            item.quantity--;
+          }
+          return item;
+        })
+        .filter(cartItem => cartItem.quantity > 0);
     }
 
     this.setState({
       cartItems
     });
+
+    let cartItemsCount = this.state.cartItemsCount - 1;
+    this.setState({ cartItemsCount: cartItemsCount });
+
+    let total = this.state.cartTotal - 1 * data.price;
+    this.setState({ cartTotal: total });
   };
 
   render() {
@@ -81,7 +104,12 @@ class SaleProducts extends Component {
         </div>
 
         <div className="cart">
-          <div className="cart-title">SHOPPING CART</div>
+          <div className="cart-title">
+            SHOPPING CART -{" "}
+            {this.state.cartItemsCount <= 1
+              ? `${this.state.cartItemsCount} ITEM`
+              : `${this.state.cartItemsCount} ITEMS`}
+          </div>
           <div>
             {this.state.cartItems.length <= 0 ? (
               <div>There is no cart yet</div>
@@ -90,6 +118,7 @@ class SaleProducts extends Component {
                 cartProduct={this.state.cartItems}
                 deleteCart={this.removeItemFromCart}
                 addAmountCart={this.addToCart}
+                totalPrices={this.state.cartTotal}
               />
             )}
           </div>
