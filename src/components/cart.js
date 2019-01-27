@@ -8,7 +8,7 @@ const Cart = ({ cartProduct, deleteCart, addAmountCart, totalPrices }) => {
       <Table className="header-fixed" size="sm" responsive>
         <thead>
           <tr>
-            <th />
+            <th/>
             <th>Product</th>
             <th>Price</th>
             <th>Quantity</th>

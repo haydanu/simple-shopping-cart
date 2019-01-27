@@ -1,12 +1,38 @@
+// @flow
 import React, { Component } from "react";
-import data from "./data";
 import { Container } from "reactstrap";
 import Typist from "react-typist";
 
+import data from "./data";
 import Products from "./products";
 import Cart from "./cart";
 
-class SaleProducts extends Component {
+type Props = {
+  /* ... */
+};
+
+type State = {
+  isLoading: boolean,
+  data: Array<{
+    id: number,
+    image: string,
+    price: number,
+    currency: string,
+    name: string
+  }>,
+  cartItems: Array<{
+    id: number,
+    image: string,
+    price: number,
+    currency: string,
+    name: string,
+    quantity: number
+  }>,
+  cartTotal: number,
+  cartItemsCount: number
+};
+
+class SaleProducts extends Component<Props, State> {
   constructor() {
     super();
     this.state = {
@@ -23,10 +49,10 @@ class SaleProducts extends Component {
       this.setState({
         isLoading: false
       });
-    }, 5000);
+    }, 4000);
   }
 
-  addToCart = data => {
+  addToCart = (data: any): void => {
     let cartItems = this.state.cartItems;
     const alreadyExists = cartItems.find(product => product.id === data.id);
     let newObjItem = {};
@@ -58,7 +84,7 @@ class SaleProducts extends Component {
     this.setState({ cartTotal: total }, console.log(this.state));
   };
 
-  removeItemFromCart = currentItem => {
+  removeItemFromCart = (currentItem: any): void => {
     let cartItems = this.state.cartItems;
     const alreadyExists = cartItems.find(
       product => product.id === currentItem.id
@@ -99,7 +125,7 @@ class SaleProducts extends Component {
               this.state.data.map((data, index) => {
                 return (
                   <Products
-                    key={`images-${data.images}-${index}`}
+                    key={`images-${data.image}-${index}`}
                     product={data}
                     addToCart={this.addToCart}
                   />
@@ -109,27 +135,30 @@ class SaleProducts extends Component {
           </div>
 
           <div className="cart">
-          {this.state.isLoading ? '' : <div>
-            <div className="cart-title">
-              SHOPPING CART -
-              {this.state.cartItemsCount <= 1
-                ? `${this.state.cartItemsCount} ITEM`
-                : `${this.state.cartItemsCount} ITEMS`}
-            </div>
-            <div>
-              {this.state.cartItems.length <= 0 ? (
-                <div>There is no cart yet</div>
-              ) : (
-                <Cart
-                  cartProduct={this.state.cartItems}
-                  deleteCart={this.removeItemFromCart}
-                  addAmountCart={this.addToCart}
-                  totalPrices={this.state.cartTotal}
-                />
-              )}
-            </div>
-            </div>
-          }
+            {this.state.isLoading ? (
+              ""
+            ) : (
+              <div>
+                <div className="cart-title">
+                  SHOPPING CART -
+                  {this.state.cartItemsCount <= 1
+                    ? `${this.state.cartItemsCount} ITEM`
+                    : `${this.state.cartItemsCount} ITEMS`}
+                </div>
+                <div>
+                  {this.state.cartItems.length <= 0 ? (
+                    <div>There is no cart yet</div>
+                  ) : (
+                    <Cart
+                      cartProduct={this.state.cartItems}
+                      deleteCart={this.removeItemFromCart}
+                      addAmountCart={this.addToCart}
+                      totalPrices={this.state.cartTotal}
+                    />
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </Container>
