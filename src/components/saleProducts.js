@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import data from "./data";
 import { Container } from "reactstrap";
+import Typist from "react-typist";
 
 import Products from "./products";
 import Cart from "./cart";
@@ -23,7 +24,7 @@ class SaleProducts extends Component {
       this.setState({
         isLoading: false
       });
-    }, 3000);
+    }, 5000);
   }
 
   addToCart = data => {
@@ -86,24 +87,15 @@ class SaleProducts extends Component {
     this.setState({ cartTotal: total });
   };
 
-  handleHover = currentItem => {
-    let cartItems = this.state.cartItems;
-    const alreadyExists = cartItems.find(
-      product => product.id === currentItem.id
-    );
-
-    if(alreadyExists){ this.setState({
-      isHovered: !this.state.isHovered
-    }) }
-  };
-
   render() {
     return (
       <Container>
         <div className="products">
           <div className="group-images">
             {this.state.isLoading ? (
-              <div>wait a moment ...</div>
+              <div className="loading-page">
+                <Typist>LOADING . . . Please wait . . .</Typist>
+              </div>
             ) : (
               this.state.data.map((data, index) => {
                 return (
@@ -111,8 +103,6 @@ class SaleProducts extends Component {
                     key={`images-${data.images}-${index}`}
                     product={data}
                     addToCart={this.addToCart}
-                    handleHover={this.handleHover}
-                    isHovered={this.state.isHovered}
                   />
                 );
               })
@@ -120,8 +110,9 @@ class SaleProducts extends Component {
           </div>
 
           <div className="cart">
+          {this.state.isLoading ? '' : <div>
             <div className="cart-title">
-              SHOPPING CART -{" "}
+              SHOPPING CART -
               {this.state.cartItemsCount <= 1
                 ? `${this.state.cartItemsCount} ITEM`
                 : `${this.state.cartItemsCount} ITEMS`}
@@ -138,6 +129,8 @@ class SaleProducts extends Component {
                 />
               )}
             </div>
+            </div>
+          }
           </div>
         </div>
       </Container>
