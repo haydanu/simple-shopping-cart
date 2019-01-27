@@ -1,4 +1,3 @@
-//@flow
 import React, { Fragment } from "react";
 import { Table } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -47,7 +46,7 @@ const Cart = ({ cartProduct, deleteCart, addAmountCart, totalPrices }) => {
         </tbody>
         <tbody>
         <tr>
-        <td colspan="5" className='total-price-cart'>$ {totalPrices}</td>
+        <td colSpan="5" className='total-price-cart'>$ {totalPrices}</td>
         </tr>
         </tbody>
       </Table>

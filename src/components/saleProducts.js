@@ -10,7 +10,6 @@ class SaleProducts extends Component {
   constructor() {
     super();
     this.state = {
-      isHovered: false,
       isLoading: true,
       data: data,
       cartItems: [],
@@ -56,7 +55,7 @@ class SaleProducts extends Component {
     this.setState({ cartItemsCount: cartItemsCount });
 
     let total = this.state.cartTotal + 1 * data.price;
-    this.setState({ cartTotal: total });
+    this.setState({ cartTotal: total }, console.log(this.state));
   };
 
   removeItemFromCart = currentItem => {
@@ -83,8 +82,8 @@ class SaleProducts extends Component {
     let cartItemsCount = this.state.cartItemsCount - 1;
     this.setState({ cartItemsCount: cartItemsCount });
 
-    let total = this.state.cartTotal - 1 * data.price;
-    this.setState({ cartTotal: total });
+    let total = this.state.cartTotal - 1 * currentItem.price;
+    this.setState({ cartTotal: total }, console.log(this.state));
   };
 
   render() {
