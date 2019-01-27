@@ -2,6 +2,7 @@
   "name": "simple-shopping-cart",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://herdanuyp.github.io/simple-shopping-cart/",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.12",
     "@fortawesome/free-solid-svg-icons": "^5.6.3",
@@ -9,6 +10,7 @@
     "axios": "^0.18.0",
     "bootstrap": "^4.2.1",
     "dotenv": "^6.2.0",
+    "gh-pages": "^2.0.1",
     "node-sass": "^4.11.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
@@ -21,7 +23,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "flow": "flow"
+    "flow": "flow",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
