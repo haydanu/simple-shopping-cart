@@ -9,13 +9,13 @@ const Products = ({ product, addToCart }) => {
       <div className="product-info">
         <Row>
           <Col md={6}>
-            <div className={`title-and-price`}>
-              <div>product {product.id}</div>
-              <div>${product.price}</div>
+            <div className={`group-title-and-price`}>
+              <div className="title">product {product.id}</div>
+              <div className="price">${product.price}</div>
             </div>
           </Col>
-          <Col md={6}>
-            <div onClick={() => addToCart(product)}>add to cart</div>
+          <Col md={6} className="centering-add-to-cart">
+            <div onClick={() => addToCart(product)} className="add-to-cart-button">add to cart</div>
           </Col>
         </Row>
       </div>

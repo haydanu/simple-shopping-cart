@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import data from "./data";
+import { Container } from "reactstrap";
 
 import Products from "./products";
 import Cart from "./cart";
@@ -8,6 +9,7 @@ class SaleProducts extends Component {
   constructor() {
     super();
     this.state = {
+      isHovered: false,
       isLoading: true,
       data: data,
       cartItems: [],
@@ -84,46 +86,61 @@ class SaleProducts extends Component {
     this.setState({ cartTotal: total });
   };
 
+  handleHover = currentItem => {
+    let cartItems = this.state.cartItems;
+    const alreadyExists = cartItems.find(
+      product => product.id === currentItem.id
+    );
+
+    if(alreadyExists){ this.setState({
+      isHovered: !this.state.isHovered
+    }) }
+  };
+
   render() {
     return (
-      <div className="products">
-        <div className="group-images">
-          {this.state.isLoading ? (
-            <div>wait a moment ...</div>
-          ) : (
-            this.state.data.map((data, index) => {
-              return (
-                <Products
-                  key={`images-${data.images}-${index}`}
-                  product={data}
-                  addToCart={this.addToCart}
-                />
-              );
-            })
-          )}
-        </div>
-
-        <div className="cart">
-          <div className="cart-title">
-            SHOPPING CART -{" "}
-            {this.state.cartItemsCount <= 1
-              ? `${this.state.cartItemsCount} ITEM`
-              : `${this.state.cartItemsCount} ITEMS`}
-          </div>
-          <div>
-            {this.state.cartItems.length <= 0 ? (
-              <div>There is no cart yet</div>
+      <Container>
+        <div className="products">
+          <div className="group-images">
+            {this.state.isLoading ? (
+              <div>wait a moment ...</div>
             ) : (
-              <Cart
-                cartProduct={this.state.cartItems}
-                deleteCart={this.removeItemFromCart}
-                addAmountCart={this.addToCart}
-                totalPrices={this.state.cartTotal}
-              />
+              this.state.data.map((data, index) => {
+                return (
+                  <Products
+                    key={`images-${data.images}-${index}`}
+                    product={data}
+                    addToCart={this.addToCart}
+                    handleHover={this.handleHover}
+                    isHovered={this.state.isHovered}
+                  />
+                );
+              })
             )}
           </div>
+
+          <div className="cart">
+            <div className="cart-title">
+              SHOPPING CART -{" "}
+              {this.state.cartItemsCount <= 1
+                ? `${this.state.cartItemsCount} ITEM`
+                : `${this.state.cartItemsCount} ITEMS`}
+            </div>
+            <div>
+              {this.state.cartItems.length <= 0 ? (
+                <div>There is no cart yet</div>
+              ) : (
+                <Cart
+                  cartProduct={this.state.cartItems}
+                  deleteCart={this.removeItemFromCart}
+                  addAmountCart={this.addToCart}
+                  totalPrices={this.state.cartTotal}
+                />
+              )}
+            </div>
+          </div>
         </div>
-      </div>
+      </Container>
     );
   }
 }

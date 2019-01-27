@@ -1,0 +1,155 @@
+.App {
+  padding: 15px;
+  text-align: center;
+  background: #f3ede7;
+  height: 100vh;
+}
+
+/* saleProducts css */
+* {
+  box-sizing: border-box;
+}
+
+.group-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 45px;
+  grid-auto-rows: 100px;
+  grid-template-areas:
+    "a e c"
+    "a e c"
+    "b e d"
+    "b e d";
+  align-items: start;
+}
+.image-1 {
+  grid-area: e;
+}
+.image-2 {
+  grid-area: a;
+}
+.image-3 {
+  grid-area: b;
+}
+.image-4 {
+  grid-area: c;
+}
+.image-5 {
+  grid-area: d;
+}
+
+.image-1 > img {
+  height: 490px;
+}
+
+.image-2 > img,
+.image-3 > img,
+.image-4 > img,
+.image-5 > img {
+  height: 200px;
+  width: 50%;
+}
+
+.group-images {
+  .image-1 > img,
+  .image-2 > img,
+  .image-3 > img,
+  .image-4 > img,
+  .image-5 > img {
+    border: 10px solid #dbdbdb;
+    background-color: #fff;
+    width: 100%;
+  }
+}
+/* end */
+
+// products.js
+.group-title-and-price {
+  .title,
+  .price {
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+}
+
+.centering-add-to-cart {
+  line-height: 46px;
+  padding: 5px;
+  cursor: pointer;
+
+  .add-to-cart-button {
+    text-align: right;
+    border: 1px solid transparent;
+    background: #f6b47a;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #fff;
+  }
+
+  .add-to-cart-button:hover {
+    box-shadow: 1px 2px 2px black;
+  }
+}
+
+// cart
+.cart {
+  margin-top: 20px;
+  border-top: 10px solid #dbdbdb;
+  height: 370px;
+  overflow-y: auto;
+}
+
+.header-fixed {
+  height: 200px;
+  overflow-y: auto;
+
+  tbody {
+    tr {
+      td {
+        line-height: 100px;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      td.quantity-cart-container {
+        display: flex;
+        justify-content: center;
+
+        small {
+          font-size: 20px;
+          font-weight: bold;
+          cursor: pointer;
+        }
+        .quantity-cart {
+          width: 50px;
+        }
+      }
+    }
+  }
+}
+.image-and-title-cart {
+  display: flex;
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
+
+  div {
+    line-height: 100px;
+    padding-left: 5px;
+  }
+}
+
+.delete-cart {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+td.total-price-cart{
+  text-align: right;
+  padding-right: 56px;
+}
