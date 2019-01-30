@@ -1,7 +1,21 @@
-import React from "react";
+// @flow
+import * as React from 'react';
 import { Row, Col } from "reactstrap";
 
-const Products = ({ product, addToCart }) => {
+type ProductType = {
+  id: number,
+  image: string,
+  price: number,
+  currency: string,
+  name: string
+};
+
+type ProductProps = {
+  product: ProductType,
+  addToCart: (product: ProductType) => void,
+}
+
+const Products = ({ product, addToCart }: ProductProps) => {
   return (
     <div className={`image-${product.id}`}>
       <img src={product.image} alt={`${product.image}`} />

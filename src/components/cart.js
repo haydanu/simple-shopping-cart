@@ -1,10 +1,27 @@
-import React, { Fragment } from "react";
+// @flow
+import * as React from 'react';
 import { Table } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Cart = ({ cartProduct, deleteCart, addAmountCart, totalPrices }) => {
+type CartType = {
+  id: number,
+  image: string,
+  price: number,
+  currency: string,
+  name: string,
+  quantity: number
+};
+
+type CartProductProps = {
+  cartProduct: Array<CartType>,
+  deleteCart: (product: CartType) => void,
+  addAmountCart: (product: CartType) => void,
+  totalPrices: number,
+}
+
+const Cart = ({ cartProduct, deleteCart, addAmountCart, totalPrices }: CartProductProps) => {
   return (
-    <Fragment>
+    <React.Fragment>
       <Table className="header-fixed" size="sm" responsive>
         <thead>
           <tr>
@@ -50,7 +67,7 @@ const Cart = ({ cartProduct, deleteCart, addAmountCart, totalPrices }) => {
         </tr>
         </tbody>
       </Table>
-    </Fragment>
+    </React.Fragment>
   );
 };
 

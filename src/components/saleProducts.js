@@ -1,5 +1,5 @@
 // @flow
-import React, { Component } from "react";
+import * as React from 'react';
 import { Container } from "reactstrap";
 import Typist from "react-typist";
 
@@ -11,28 +11,32 @@ type Props = {
   /* ... */
 };
 
+type DataType = {
+  id: number,
+  image: string,
+  price: number,
+  currency: string,
+  name: string
+};
+
+type CartType = {
+  id: number,
+  image: string,
+  price: number,
+  currency: string,
+  name: string,
+  quantity: number
+};
+
 type State = {
   isLoading: boolean,
-  data: Array<{
-    id: number,
-    image: string,
-    price: number,
-    currency: string,
-    name: string
-  }>,
-  cartItems: Array<{
-    id: number,
-    image: string,
-    price: number,
-    currency: string,
-    name: string,
-    quantity: number
-  }>,
+  data: Array<DataType>,
+  cartItems: Array<CartType>,
   cartTotal: number,
   cartItemsCount: number
 };
 
-class SaleProducts extends Component<Props, State> {
+class SaleProducts extends React.Component<Props, State> {
   constructor() {
     super();
     this.state = {
@@ -122,7 +126,7 @@ class SaleProducts extends Component<Props, State> {
                 <Typist>LOADING . . . Please wait . . .</Typist>
               </div>
             ) : (
-              this.state.data.map((data, index) => {
+              this.state.data.map((data: any, index) => {
                 return (
                   <Products
                     key={`images-${data.image}-${index}`}
@@ -142,8 +146,8 @@ class SaleProducts extends Component<Props, State> {
                 <div className="cart-title">
                   SHOPPING CART -
                   {this.state.cartItemsCount <= 1
-                    ? `${this.state.cartItemsCount} ITEM`
-                    : `${this.state.cartItemsCount} ITEMS`}
+                    ? ` ${this.state.cartItemsCount} ITEM`
+                    : ` ${this.state.cartItemsCount} ITEMS`}
                 </div>
                 <div>
                   {this.state.cartItems.length <= 0 ? (
